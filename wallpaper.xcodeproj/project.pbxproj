@@ -88,7 +88,7 @@
 		E35506931AC468E900192E24 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Sindre Sorhus";
 				TargetAttributes = {
 					E355069A1AC468E900192E24 = {
@@ -144,6 +144,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -202,6 +203,7 @@
 		E35506A31AC468E900192E24 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -210,6 +212,7 @@
 		E35506A41AC468E900192E24 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
