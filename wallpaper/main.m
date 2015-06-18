@@ -10,7 +10,9 @@
 
 int main() {
 	@autoreleasepool {
+		NSWorkspace *sw = [NSWorkspace sharedWorkspace];
 		NSArray *args = [NSProcessInfo processInfo].arguments;
+		NSScreen *screen = [NSScreen mainScreen];
 
 		if (args.count > 1) {
 			if ([args[1] isEqualToString: @"--version"]) {
@@ -23,9 +25,20 @@ int main() {
 				return 0;
 			}
 
-			[[NSWorkspace sharedWorkspace] setDesktopImageURL:[NSURL fileURLWithPath:args[1]] forScreen:[NSScreen mainScreen] options:nil error:nil];
+			NSError *err;
+
+			bool success = [sw
+				setDesktopImageURL:[NSURL fileURLWithPath:args[1]]
+				forScreen:screen
+				options:[sw desktopImageOptionsForScreen:screen]
+				error:&err];
+
+			if (!success) {
+				fprintf(stderr, "%s\n", err.localizedDescription.UTF8String);
+				return 1;
+			}
 		} else {
-			printf("%s\n", [[NSWorkspace sharedWorkspace] desktopImageURLForScreen:[NSScreen mainScreen]].path.UTF8String);
+			printf("%s\n", [sw desktopImageURLForScreen:screen].path.UTF8String);
 		}
 	}
 
