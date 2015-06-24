@@ -5,23 +5,51 @@
 //  Created by Sindre Sorhus on 27/03/15.
 //  Copyright (c) 2015 Sindre Sorhus. All rights reserved.
 //
+//  Multiscreen support by Terence-Lee Davis on 24/06/15.
+//
 
 @import AppKit;
 
+#import "ScreenInfo.h"
+
 int main() {
 	@autoreleasepool {
-		NSWorkspace *sw = [NSWorkspace sharedWorkspace];
-		NSArray *args = [NSProcessInfo processInfo].arguments;
+		NSWorkspace *sw  = [NSWorkspace sharedWorkspace];
+		NSArray *args    = [NSProcessInfo processInfo].arguments;
 		NSScreen *screen = [NSScreen mainScreen];
 
 		if (args.count > 1) {
 			if ([args[1] isEqualToString: @"--version"]) {
-				puts("1.0.0");
+				puts("1.1.0");
 				return 0;
 			}
 
 			if ([args[1] isEqualToString: @"--help"]) {
-				puts("\n  Get or set the desktop wallpaper\n\n  Usage: wallpaper [file]\n\n  Created by Sindre Sorhus");
+				puts("Get or set the desktop wallpaper of a specific screen or all screens.\n"
+					 "Usage: wallpaper [options] [[screenid] [file]]\n"
+					 "   file               Absolute path to image file.\n"
+					 "   screenid           ID of the screen to get or set the wallpaper on\n"
+					 "                      if none specified then the wallpaper is returned or\n"
+					 "                      set on all screens.\n\n"
+					 "   --version          Displays version number.\n"
+					 "   --help             Shows this help prompt.\n"
+					 "   --screeninfo       Displays all screen information.\n\n"
+					 "Created by Sindre Sorhus\n"
+					 "Multiscreen support by Terence-Lee Davis");
+				return 0;
+			}
+			
+			// List the available screens attached to the computer
+			if ([args[1] isEqualToString: @"--screeninfo"]) {
+				NSArray* screens = [ScreenInfo getScreens];
+				for (id screen in screens) {
+					NSString* screenName = [ScreenInfo getScreenDeviceName:screen];
+					NSNumber* screenID   = [ScreenInfo getScreenDeviceID:screen];
+					
+					NSString* screenInfo = [NSString stringWithFormat:@"%@:%@", screenID, screenName];
+					puts(screenInfo.UTF8String);
+				}
+				
 				return 0;
 			}
 
