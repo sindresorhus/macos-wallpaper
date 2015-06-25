@@ -1,6 +1,6 @@
 # osx-wallpaper
 
-> Get or set the desktop wallpaper on OS X
+> Get or set the desktop wallpaper on OS X. Version 1.1.0 supports multiscreen now.
 
 Should work on >=10.6, but only tested on 10.10.
 
@@ -18,15 +18,27 @@ $ npm install --global osx-wallpaper
 [Download the binary](https://github.com/sindresorhus/osx-wallpaper/releases/latest) and put it in `/usr/local/bin`.
 
 
-## Usage
+## Binary usage
 
 ```sh
-# set
+# Set wallpaper on main screen
 wallpaper unicorn.jpg
 
-# get
+# List connected screens (screen ID:screen name)
+wallpaper --screeninfo
+> 69732482:Color LCD
+> 188845747:SM2333T
+
+# Set wallpaper on specific screen (replace screenid with your screen ID)
+wallpaper screenid unicorn2.jpg
+
+# Get wallpaper on main screen
 wallpaper
 > /Users/sindresorhus/unicorn.jpg
+
+# Get wallpaper on specific screen (replace screenid with your screen ID)
+wallpaper screenid
+> /Users/sindresorhus/unicorn2.jpg
 ```
 
 

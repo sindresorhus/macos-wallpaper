@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00ADBE821B3AFFE1001D1CB8 /* ScreenInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ADBE811B3AFFE1001D1CB8 /* ScreenInfo.m */; };
 		E355069F1AC468E900192E24 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E355069E1AC468E900192E24 /* main.m */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		00ADBE801B3AFFE1001D1CB8 /* ScreenInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenInfo.h; sourceTree = "<group>"; };
+		00ADBE811B3AFFE1001D1CB8 /* ScreenInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenInfo.m; sourceTree = "<group>"; };
 		E355069B1AC468E900192E24 /* wallpaper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = wallpaper; sourceTree = BUILT_PRODUCTS_DIR; };
 		E355069E1AC468E900192E24 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -45,6 +48,7 @@
 				E355069C1AC468E900192E24 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		E355069C1AC468E900192E24 /* Products */ = {
 			isa = PBXGroup;
@@ -58,6 +62,8 @@
 			isa = PBXGroup;
 			children = (
 				E355069E1AC468E900192E24 /* main.m */,
+				00ADBE801B3AFFE1001D1CB8 /* ScreenInfo.h */,
+				00ADBE811B3AFFE1001D1CB8 /* ScreenInfo.m */,
 			);
 			path = wallpaper;
 			sourceTree = "<group>";
@@ -119,6 +125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E355069F1AC468E900192E24 /* main.m in Sources */,
+				00ADBE821B3AFFE1001D1CB8 /* ScreenInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,7 +211,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				CODE_SIGN_IDENTITY = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -213,7 +220,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				CODE_SIGN_IDENTITY = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
