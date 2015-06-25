@@ -41,4 +41,17 @@
 	return screenID;
 }
 
++ (NSScreen*) getScreenFromDeviceID:(NSNumber*)deviceID
+{
+	NSArray* screens = [ScreenInfo getScreens];
+	for(id screen in screens)
+	{
+		NSNumber* screenID = [ScreenInfo getScreenDeviceID:screen];
+		if(screenID == deviceID)
+			return screen;
+	}
+	
+	return nil;
+}
+
 @end

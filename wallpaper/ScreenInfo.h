@@ -11,4 +11,5 @@
 + (NSArray*) getScreens;
 + (NSString*) getScreenDeviceName:(NSScreen*)screen;
 + (NSNumber*) getScreenDeviceID:(NSScreen*)screen;
++ (NSScreen*) getScreenFromDeviceID:(NSNumber*)deviceID;
 @end
