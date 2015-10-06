@@ -1,5 +1,5 @@
 //
-//  main.m
+//  wallpaper.m
 //  wallpaper
 //
 //  Created by Sindre Sorhus on 27/03/15.

@@ -2,38 +2,40 @@
 
 > Get or set the desktop wallpaper on OS X
 
-Should work on >=10.6, but only tested on 10.10.
+Should work on >=10.6, but only tested on >=10.10.
 
 
 ## Install
 
-### [npm](https://github.com/sindresorhus/node-osx-wallpaper#cli)
-
-```
-$ npm install --global osx-wallpaper
-```
-
-### Manually
-
-[Download the binary](https://github.com/sindresorhus/osx-wallpaper/releases/latest) and put it in `/usr/local/bin`.
+[Download](https://github.com/sindresorhus/osx-wallpaper/releases/latest) the binary and put it in `/usr/local/bin`.
 
 
 ## Usage
 
-```sh
-# set
-wallpaper unicorn.jpg
+###### Set
 
-# get
-wallpaper
-> /Users/sindresorhus/unicorn.jpg
+```
+$ wallpaper unicorn.jpg
+```
+
+###### Get
+
+```
+$ wallpaper
+/Users/sindresorhus/unicorn.jpg
+```
+
+
+## Build
+
+```
+$ ./build
 ```
 
 
 ## Related
 
-- [`node-osx-wallpaper`](https://github.com/sindresorhus/node-osx-wallpaper) - Node wrapper.
-- [`wallpaper`](https://github.com/sindresorhus/wallpaper) - Get or set the desktop wallpaper.
+- [wallpaper](https://github.com/sindresorhus/wallpaper) - Get or set the desktop wallpaper
 
 
 ## License
