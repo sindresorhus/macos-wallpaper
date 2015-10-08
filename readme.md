@@ -2,7 +2,7 @@
 
 > Get or set the desktop wallpaper on OS X
 
-Should work on >=10.6, but only tested on >=10.10.
+Should work on >=10.6, but only tested on >=10.9.
 
 
 ## Install
