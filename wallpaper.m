@@ -12,8 +12,7 @@ int main() {
 	@autoreleasepool {
 		NSWorkspace *sw = [NSWorkspace sharedWorkspace];
 		NSArray *args = [NSProcessInfo processInfo].arguments;
-        NSArray<NSScreen *> *screens = [NSScreen screens];
-        NSScreen *screen = screens[0];
+		NSScreen *screen = [NSScreen screens].firstObject;
 
 		if (args.count > 1) {
 			if ([args[1] isEqualToString: @"--version"]) {
