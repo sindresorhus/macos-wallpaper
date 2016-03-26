@@ -35,9 +35,9 @@ $ ./build
 
 ## Related
 
-- [wallpaper](https://github.com/sindresorhus/wallpaper) - Get or set the desktop wallpaper
+- [wallpaper](https://github.com/sindresorhus/wallpaper) - Get or set the desktop wallpaper cross-platform *(Uses this binary)*
 
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](https://sindresorhus.com)
