@@ -7,6 +7,14 @@ Should work on >=10.6, but only tested on >=10.9.
 
 ## Install
 
+###### [Homebrew](http://brew.sh)
+
+```
+$ brew install wallpaper
+```
+
+###### Manually
+
 [Download](https://github.com/sindresorhus/osx-wallpaper/releases/latest) the binary and put it in `/usr/local/bin`.
 
 
