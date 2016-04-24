@@ -38,7 +38,37 @@ int main() {
 				return 1;
 			}
 		} else {
-			printf("%s\n", [sw desktopImageURLForScreen:screen].path.UTF8String);
+      NSString *url = [sw desktopImageURLForScreen:screen].path;
+      BOOL isDir;
+      // check if file is a directory
+      [[NSFileManager defaultManager] fileExistsAtPath:url isDirectory:&isDir];
+      
+      // if directory, check db
+      if (isDir) {
+        NSTask *task = [[NSTask alloc] init];
+
+        NSString *dbLoc = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Dock/desktoppicture.db"];
+
+        [task setLaunchPath: @"/usr/bin/sqlite3"];
+        [task setArguments: [NSArray arrayWithObjects: dbLoc, @"select * from data", nil]];
+
+        NSPipe *pipe = [NSPipe pipe];
+        [task setStandardOutput:pipe];
+
+        [task launch];
+        [task waitUntilExit];
+        [task release];
+
+        NSData *data = [[pipe fileHandleForReading] readDataToEndOfFile];
+        NSString *output = [[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
+        NSArray *array = [[NSArray alloc] initWithArray: [output componentsSeparatedByString:@"\n"]];
+        int count = [array count];
+        NSString *string = [array objectAtIndex: count-2];
+
+        printf("%s/%s\n", url.UTF8String, string.UTF8String);
+      } else {
+        printf("%s\n", url.UTF8String);
+      }
 		}
 	}
 
