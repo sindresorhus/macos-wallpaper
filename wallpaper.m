@@ -7,6 +7,7 @@
 //
 
 @import AppKit;
+#import <sqlite3.h>
 
 int main() {
 	@autoreleasepool {
@@ -38,37 +39,41 @@ int main() {
 				return 1;
 			}
 		} else {
-      NSString *url = [sw desktopImageURLForScreen:screen].path;
-      BOOL isDir;
-      // check if file is a directory
-      [[NSFileManager defaultManager] fileExistsAtPath:url isDirectory:&isDir];
-      
-      // if directory, check db
-      if (isDir) {
-        NSTask *task = [[NSTask alloc] init];
+			NSString *url = [sw desktopImageURLForScreen:screen].path;
+			BOOL isDir;
+			NSFileManager *fm = [NSFileManager defaultManager];
 
-        NSString *dbLoc = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Dock/desktoppicture.db"];
+			// check if file is a directory
+			[fm fileExistsAtPath:url isDirectory:&isDir];
 
-        [task setLaunchPath: @"/usr/bin/sqlite3"];
-        [task setArguments: [NSArray arrayWithObjects: dbLoc, @"select * from data", nil]];
+			// if directory, check db
+			if (isDir) {
+				NSArray *dirs = [fm URLsForDirectory:NSApplicationSupportDirectory
+																	 inDomains:NSUserDomainMask];
+				if ([dirs count] > 0) {
+					NSURL *dbLoc = [[dirs objectAtIndex:0] URLByAppendingPathComponent:@"Dock/desktoppicture.db"];
+					const char *dbPath = [[dbLoc path] UTF8String];
+					sqlite3 *db = nil;
 
-        NSPipe *pipe = [NSPipe pipe];
-        [task setStandardOutput:pipe];
+					if (sqlite3_open(dbPath, &db) == SQLITE_OK) {
+						sqlite3_stmt *statement;
+						const char *sql = "SELECT * FROM data";
 
-        [task launch];
-        [task waitUntilExit];
-        [task release];
+						if (sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK) {
+							NSString *file;
+							while (sqlite3_step(statement) == SQLITE_ROW) {
+								file = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 0)];
+							}
 
-        NSData *data = [[pipe fileHandleForReading] readDataToEndOfFile];
-        NSString *output = [[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
-        NSArray *array = [[NSArray alloc] initWithArray: [output componentsSeparatedByString:@"\n"]];
-        int count = [array count];
-        NSString *string = [array objectAtIndex: count-2];
-
-        printf("%s/%s\n", url.UTF8String, string.UTF8String);
-      } else {
-        printf("%s\n", url.UTF8String);
-      }
+							printf("%s/%s\n", url.UTF8String, file.UTF8String);
+							sqlite3_finalize(statement);
+						}
+						sqlite3_close(db);
+					}
+				}
+			} else {
+				printf("%s\n", url.UTF8String);
+			}
 		}
 	}
 
