@@ -1,6 +1,6 @@
-# osx-wallpaper
+# macos-wallpaper
 
-> Get or set the desktop wallpaper on OS X
+> Get or set the desktop wallpaper on macOS
 
 Should work on >=10.6, but only tested on >=10.9.
 
@@ -15,7 +15,7 @@ $ brew install wallpaper
 
 ###### Manually
 
-[Download](https://github.com/sindresorhus/osx-wallpaper/releases/latest) the binary and put it in `/usr/local/bin`.
+[Download](https://github.com/sindresorhus/macos-wallpaper/releases/latest) the binary and put it in `/usr/local/bin`.
 
 
 ## Usage
