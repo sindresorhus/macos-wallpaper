@@ -39,40 +39,37 @@ int main() {
 				return 1;
 			}
 		} else {
-			NSString *url = [sw desktopImageURLForScreen:screen].path;
+			NSString *path = [sw desktopImageURLForScreen:screen].path;
 			BOOL isDir;
 			NSFileManager *fm = [NSFileManager defaultManager];
 
 			// check if file is a directory
-			[fm fileExistsAtPath:url isDirectory:&isDir];
+			[fm fileExistsAtPath:path isDirectory:&isDir];
 
 			// if directory, check db
 			if (isDir) {
-				NSArray *dirs = [fm URLsForDirectory:NSApplicationSupportDirectory
-																	 inDomains:NSUserDomainMask];
-				if ([dirs count] > 0) {
-					NSURL *dbLoc = [[dirs objectAtIndex:0] URLByAppendingPathComponent:@"Dock/desktoppicture.db"];
-					const char *dbPath = [[dbLoc path] UTF8String];
-					sqlite3 *db = nil;
+				NSArray *dirs = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+				NSString *dbPath = [dirs[0] stringByAppendingPathComponent:@"Dock/desktoppicture.db"];
+				sqlite3 *db;
 
-					if (sqlite3_open(dbPath, &db) == SQLITE_OK) {
-						sqlite3_stmt *statement;
-						const char *sql = "SELECT * FROM data";
+				if (sqlite3_open(dbPath.UTF8String, &db) == SQLITE_OK) {
+					sqlite3_stmt *statement;
+					const char *sql = "SELECT * FROM data";
 
-						if (sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK) {
-							NSString *file;
-							while (sqlite3_step(statement) == SQLITE_ROW) {
-								file = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 0)];
-							}
-
-							printf("%s/%s\n", url.UTF8String, file.UTF8String);
-							sqlite3_finalize(statement);
+					if (sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK) {
+						NSString *file;
+						while (sqlite3_step(statement) == SQLITE_ROW) {
+							file = @((char *)sqlite3_column_text(statement, 0));
 						}
-						sqlite3_close(db);
+
+						printf("%s/%s\n", path.UTF8String, file.UTF8String);
+						sqlite3_finalize(statement);
 					}
+
+					sqlite3_close(db);
 				}
 			} else {
-				printf("%s\n", url.UTF8String);
+				printf("%s\n", path.UTF8String);
 			}
 		}
 	}
