@@ -14,6 +14,7 @@ int main() {
 		NSWorkspace *sw = [NSWorkspace sharedWorkspace];
 		NSArray *args = [NSProcessInfo processInfo].arguments;
 		NSScreen *screen = [NSScreen screens].firstObject;
+		NSMutableDictionary *so = [[sw desktopImageOptionsForScreen:screen] mutableCopy];
 
 		if (args.count > 1) {
 			if ([args[1] isEqualToString: @"--version"]) {
@@ -22,8 +23,30 @@ int main() {
 			}
 
 			if ([args[1] isEqualToString: @"--help"]) {
-				puts("\n  Get or set the desktop wallpaper\n\n  Usage: wallpaper [file]\n\n  Created by Sindre Sorhus");
+				puts("\n  Get or set the desktop wallpaper\n\n  Usage: wallpaper [file] [scale]\n\n  `scale` can be either: fill fit stretch center\n  If not specified, it will use your current setting\n\n  Created by Sindre Sorhus");
 				return 0;
+			}
+
+			if (args.count > 2) {
+				if ([args[2] isEqualToString: @"fill"]) {
+					[so setObject:[NSNumber numberWithInt:NSImageScaleProportionallyUpOrDown] forKey:NSWorkspaceDesktopImageScalingKey];
+					[so setObject:[NSNumber numberWithBool:YES] forKey:NSWorkspaceDesktopImageAllowClippingKey];
+				}
+
+				if ([args[2] isEqualToString: @"fit"]) {
+					[so setObject:[NSNumber numberWithInt:NSImageScaleProportionallyUpOrDown] forKey:NSWorkspaceDesktopImageScalingKey];
+					[so setObject:[NSNumber numberWithBool:NO] forKey:NSWorkspaceDesktopImageAllowClippingKey];
+				}
+
+				if ([args[2] isEqualToString: @"stretch"]) {
+					[so setObject:[NSNumber numberWithInt:NSImageScaleAxesIndependently] forKey:NSWorkspaceDesktopImageScalingKey];
+					[so setObject:[NSNumber numberWithBool:YES] forKey:NSWorkspaceDesktopImageAllowClippingKey];
+				}
+
+				if ([args[2] isEqualToString: @"center"]) {
+					[so setObject:[NSNumber numberWithInt:NSImageScaleNone] forKey:NSWorkspaceDesktopImageScalingKey];
+					[so setObject:[NSNumber numberWithBool:NO] forKey:NSWorkspaceDesktopImageAllowClippingKey];
+				}
 			}
 
 			NSError *err;
@@ -31,7 +54,7 @@ int main() {
 			bool success = [sw
 				setDesktopImageURL:[NSURL fileURLWithPath:args[1]]
 				forScreen:screen
-				options:[sw desktopImageOptionsForScreen:screen]
+				options:so
 				error:&err];
 
 			if (!success) {
