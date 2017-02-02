@@ -41,7 +41,7 @@ $ wallpaper unicorn.jpg fill
 
 You can specify the scaling method as the second parameter, which can be either `fill`, `fit`, `stretch`, or `center`.
 
-If you don't specify a scaling method, it will keep your current setting.
+If you don't specify a scaling method, it will use your current setting.
 
 
 ## Build
