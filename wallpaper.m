@@ -23,7 +23,7 @@ int main() {
 			}
 
 			if ([args[1] isEqualToString: @"--help"]) {
-				puts("\n  Get or set the desktop wallpaper\n\n  Usage: wallpaper [file] [scale]\n\n  scale can be either fill, fit, stretch, or center. If not specified, it will keep your current setting.\n\n  Created by Sindre Sorhus");
+				puts("\n  Get or set the desktop wallpaper\n\n  Usage: wallpaper [file] [scale]\n\n  `scale` can be either: fill fit stretch center\nIf not specified, it will use your current setting\n\n  Created by Sindre Sorhus");
 				return 0;
 			}
 
