@@ -2,8 +2,7 @@
 //  wallpaper.m
 //  wallpaper
 //
-//  Created by Sindre Sorhus on 27/03/15.
-//  Copyright (c) 2015 Sindre Sorhus. All rights reserved.
+//  Copyright © Sindre Sorhus
 //
 
 @import AppKit;
@@ -66,10 +65,10 @@ int main() {
 			BOOL isDir;
 			NSFileManager *fm = [NSFileManager defaultManager];
 
-			// check if file is a directory
+			// Check if file is a directory
 			[fm fileExistsAtPath:path isDirectory:&isDir];
 
-			// if directory, check db
+			// If directory, check database
 			if (isDir) {
 				NSArray *dirs = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
 				NSString *dbPath = [dirs[0] stringByAppendingPathComponent:@"Dock/desktoppicture.db"];
