@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SQLite.swift",
+        "repositoryURL": "https://github.com/stephencelis/SQLite.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "1d2eef2570c89dbfa221fc231a8af1148ea234a3",
+          "version": "0.11.4"
+        }
+      },
+      {
+        "package": "SwiftCLI",
+        "repositoryURL": "https://github.com/jakeheis/SwiftCLI",
+        "state": {
+          "branch": null,
+          "revision": "51ba542611878b2e64e82467b895fdf4240ec32e",
+          "version": "5.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

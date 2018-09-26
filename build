@@ -1,5 +1,0 @@
-#!/usr/bin/env sh
-
-filename=wallpaper
-
-clang $filename.m -fmodules -mmacosx-version-min=10.6 -lsqlite3 -o $filename
