@@ -1,5 +1,6 @@
 import AppKit
 import SwiftCLI
+import Wallpaper
 
 func stringToScale(_ scale: String?) -> Wallpaper.Scale {
 	switch scale {

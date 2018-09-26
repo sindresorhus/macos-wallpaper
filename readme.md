@@ -2,10 +2,20 @@
 
 > Manage the desktop wallpaper on macOS
 
-*Requires macOS 10.10 or later.*
+This is both a command-line app and a Swift package.
+
+It correctly handles getting the active wallapaper even when the wallpaper is set to a directory.
+
+*Requires macOS 10.12 or later.*
+
+<a href="https://www.patreon.com/sindresorhus">
+	<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
+</a>
 
 
-## Install
+## CLI
+
+### Install
 
 ###### [Homebrew](https://brew.sh)
 
@@ -18,7 +28,7 @@ $ brew install wallpaper
 [Download](https://github.com/sindresorhus/macos-wallpaper/releases/latest) the binary and put it in `/usr/local/bin`.
 
 
-## Usage
+### Usage
 
 ```
 Usage: wallpaper <command> [options]
@@ -46,9 +56,9 @@ If you don't specify a scale option, it will use your current setting.
 
 - `-s, -scale <option>` - Set image scaling option.
 
-```
-$ wallpaper set unicorn.jpg --scale fill
-```
+	```
+	$ wallpaper set unicorn.jpg --scale fill
+	```
 
 ##### Get
 
@@ -58,30 +68,49 @@ $ wallpaper get
 ```
 
 
-## Build
+## API
 
-### Dev
+### Install
 
+With Swift Package Manager:
+
+```swift
+.package(url: "https://github.com/sindresorhus/macos-wallpaper", from: "2.0.0")
 ```
-swift build
+
+### Usage
+
+```swift
+import Wallpaper
+
+let imageURL = URL(fileURLWithPath: "<path>")
+
+try! Wallpaper.set(imageURL, screens: .main, scale: .fill)
+
+print(try! Wallpaper.get())
 ```
 
-Run:
+See the [source](Sources/Wallpaper/Wallpaper.swift) for more.
+
+
+## Dev
+
+### Run
 
 ```
 swift run wallpaper
 ```
 
-### Release
+### Build
 
 ```
-swift build --configuration release
+swift build --configuration=release
 ```
 
-Run:
+### Generate Xcode project
 
 ```
-.build/release/wallpaper
+swift package generate-xcodeproj --xcconfig-overrides=Config.xcconfig
 ```
 
 

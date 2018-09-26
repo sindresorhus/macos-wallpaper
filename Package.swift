@@ -2,18 +2,38 @@
 import PackageDescription
 
 let package = Package(
-	name: "wallpaper",
+	name: "Wallpaper",
+	products: [
+		.executable(
+			name: "wallpaper",
+			targets: [
+				"WallpaperCLI"
+			]
+		),
+		.library(
+			name: "Wallpaper",
+			targets: [
+				"Wallpaper"
+			]
+		),
+	],
 	dependencies: [
 		.package(url: "https://github.com/jakeheis/SwiftCLI", from: "5.2.0"),
 		.package(url: "https://github.com/stephencelis/SQLite.swift", from: "0.11.5")
 	],
 	targets: [
 		.target(
-			name: "wallpaper",
+			name: "WallpaperCLI",
 			dependencies: [
-				"SwiftCLI",
-				"SQLite"
+				"Wallpaper",
+				"SwiftCLI"
 			]
 		),
+		.target(
+			name: "Wallpaper",
+			dependencies: [
+				"SQLite"
+			]
+		)
 	]
 )
