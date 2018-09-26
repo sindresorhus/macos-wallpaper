@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/stephencelis/SQLite.swift.git",
         "state": {
           "branch": null,
-          "revision": "1d2eef2570c89dbfa221fc231a8af1148ea234a3",
-          "version": "0.11.4"
+          "revision": "210098546d59678f720e4ef67f8b562acfebbdb0",
+          "version": "0.11.5"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/jakeheis/SwiftCLI",
         "state": {
           "branch": null,
-          "revision": "51ba542611878b2e64e82467b895fdf4240ec32e",
-          "version": "5.0.0"
+          "revision": "37f4a7f863f6fe76ce44fc0023f331eea0089beb",
+          "version": "5.2.0"
         }
       }
     ]
