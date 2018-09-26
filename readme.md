@@ -1,6 +1,6 @@
 # macos-wallpaper
 
-> Get or set the desktop wallpaper on macOS
+> Manage the desktop wallpaper on macOS
 
 *Requires macOS 10.10 or later.*
 
@@ -23,16 +23,16 @@ $ brew install wallpaper
 ```
 Usage: wallpaper <command> [options]
 
-Manage your desktop background image.
+Manage the desktop wallpaper
 
 Commands:
-  set             Set wallpaper image. Usage set <path>
-  get             Get current wallpaper image path.
-  help            Prints this help information
+  set             Set wallpaper image. Usage: set <path> [--scale <scale>]
+  get             Get current wallpaper image path
+  help            Prints help information
   version         Prints the current version of this app
 ```
 
-###### Set
+##### Set
 
 ```
 $ wallpaper set unicorn.jpg
@@ -40,17 +40,17 @@ $ wallpaper set unicorn.jpg
 
 ###### Scaling options
 
-You can specify the scaling method with one of these scale options: `fill`, `fit`, `stretch`, or `center`.
+You can specify the scaling method with one of the following scale options: `fill`, `fit`, `stretch`, or `center`.
 
-If you don't specify a scaling method, it will use your current setting.
+If you don't specify a scale option, it will use your current setting.
 
-- `-s, -scale <option>` Set image scaling option
+- `-s, -scale <option>` - Set image scaling option.
 
 ```
-$ wallpaper set unicorn.jpg -scale fill
+$ wallpaper set unicorn.jpg --scale fill
 ```
 
-###### Get
+##### Get
 
 ```
 $ wallpaper get
@@ -66,7 +66,7 @@ $ wallpaper get
 swift build
 ```
 
-###### Run
+Run:
 
 ```
 swift run wallpaper
@@ -78,7 +78,7 @@ swift run wallpaper
 swift build --configuration release
 ```
 
-###### Run
+Run:
 
 ```
 .build/release/wallpaper

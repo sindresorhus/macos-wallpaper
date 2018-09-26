@@ -1,35 +1,54 @@
 import AppKit
 import SwiftCLI
 
-class SetCommand: Command {
+func stringToScale(_ scale: String?) -> Wallpaper.Scale {
+	switch scale {
+	case "fill":
+		return .fill
+	case "fit":
+		return .fit
+	case "stretch":
+		return .stretch
+	case "center":
+		return .center
+	default:
+		return .auto
+	}
+}
+
+final class SetCommand: Command {
 	let name = "set"
-	let shortDescription = "Set wallpaper image. Usage: set <path> [-s <scale>]"
+	let shortDescription = "Set wallpaper image. Usage: set <path> [--scale <scale>]"
 	let path = Parameter()
 	let scale = Key<String>("-s", "--scale", description: "Image scale options [fill, fit, stretch, center]")
 
 	func execute() throws {
-		let scaleOption = scale.value ?? nil
-		let screens = NSScreen.screens
-
-		// Update all screens by default
-		for screen in screens {
-			setDesktopImage(screen: screen, imgPath: path.value, scale: scaleOption)
-		}
+		try Wallpaper.set(
+			URL(fileURLWithPath: path.value),
+			screens: .all,
+			scale: stringToScale(scale.value)
+		)
 	}
 }
 
-class GetCommand: Command {
+final class GetCommand: Command {
 	let name = "get"
-	let shortDescription = "Get current wallpaper image path."
+	let shortDescription = "Get current wallpaper image path"
+
 	func execute() throws {
-		print(getDesktopImage())
+		print(try Wallpaper.get().path)
 	}
 }
 
-let myCLI = CLI(name: "wallpaper", version: "1.4.0", description: "Get or set the desktop wallpaper on macOS")
-myCLI.commands = [SetCommand(), GetCommand()]
-let exitCode = myCLI.go()
+let cli = CLI(
+	name: "wallpaper",
+	version: "1.4.0",
+	description: "Manage the desktop wallpaper"
+)
 
-if exitCode > 0 {
-	print("Error with code", exitCode)
-}
+cli.commands = [
+	SetCommand(),
+	GetCommand()
+]
+
+cli.goAndExit()
