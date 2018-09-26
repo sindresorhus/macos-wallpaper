@@ -2,12 +2,12 @@
 
 > Get or set the desktop wallpaper on macOS
 
-Should work on >=10.6, but only tested on >=10.9.
+*Requires macOS 10.10 or later.*
 
 
 ## Install
 
-###### [Homebrew](http://brew.sh)
+###### [Homebrew](https://brew.sh)
 
 ```
 $ brew install wallpaper
@@ -44,7 +44,7 @@ You can specify the scaling method with one of these scale options: `fill`, `fit
 
 If you don't specify a scaling method, it will use your current setting.
 
-* `-s, -scale <option>` Set image scaling option
+- `-s, -scale <option>` Set image scaling option
 
 ```
 $ wallpaper set unicorn.jpg -scale fill
@@ -57,24 +57,34 @@ $ wallpaper get
 /Users/sindresorhus/unicorn.jpg
 ```
 
-## Build (Dev)
+
+## Build
+
+### Dev
+
 ```
 swift build
 ```
+
 ###### Run
+
 ```
 swift run wallpaper
 ```
 
-## Build (Release)
+### Release
 
 ```
-swift build -c release
+swift build --configuration release
 ```
+
 ###### Run
+
 ```
-.build/<build_target>/release/wallpaper
+.build/release/wallpaper
 ```
+
+
 ## Related
 
 - [wallpaper](https://github.com/sindresorhus/wallpaper) - Get or set the desktop wallpaper cross-platform *(Uses this binary)*
