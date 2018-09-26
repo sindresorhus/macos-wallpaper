@@ -36,29 +36,20 @@ Usage: wallpaper <command> [options]
 Manage the desktop wallpaper
 
 Commands:
-  set             Set wallpaper image. Usage: set <path> [--scale <scale>]
-  get             Get current wallpaper image path
+  set             Set wallpaper image. Usage: set <path>
+  get             Get current wallpaper image
+  screens         List screens
   help            Prints help information
   version         Prints the current version of this app
 ```
+
+By default, it sets and gets the wallpaper for all screens. Use the `--screen` flag to change this.
 
 ##### Set
 
 ```
 $ wallpaper set unicorn.jpg
 ```
-
-###### Scaling options
-
-You can specify the scaling method with one of the following scale options: `fill`, `fit`, `stretch`, or `center`.
-
-If you don't specify a scale option, it will use your current setting.
-
-- `-s, -scale <option>` - Set image scaling option.
-
-	```
-	$ wallpaper set unicorn.jpg --scale fill
-	```
 
 ##### Get
 
@@ -85,9 +76,9 @@ import Wallpaper
 
 let imageURL = URL(fileURLWithPath: "<path>")
 
-try! Wallpaper.set(imageURL, screens: .main, scale: .fill)
+try! Wallpaper.set(imageURL, screen: .main, scale: .fill)
 
-print(try! Wallpaper.get())
+print(try! Wallpaper.get(screen: .main))
 ```
 
 See the [source](Sources/Wallpaper/Wallpaper.swift) for more.

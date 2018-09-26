@@ -38,31 +38,30 @@ public struct Wallpaper {
 		case center
 	}
 
-	/// Gets the current wallpaper
-	public static func get(screen: NSScreen? = .main) throws -> URL {
-		let wallpaperURL = NSWorkspace.shared.desktopImageURL(for: screen!)!
+	private static func getFromDirectory(_ url: URL) throws -> URL {
+		let appSupportDirectory = try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+		let dbURL = appSupportDirectory.appendingPathComponent("Dock/desktoppicture.db")
 
-		if wallpaperURL.isDirectory {
-			let appSupportDirectory = try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-			let dbURL = appSupportDirectory.appendingPathComponent("Dock/desktoppicture.db")
+		let table = Table("data")
+		let column = Expression<String>("value")
+		let rowID = Expression<Int64>("rowid")
 
-			let table = Table("data")
-			let column = Expression<String>("value")
-			let rowID = Expression<Int64>("rowid")
+		let db = try Connection(dbURL.path)
+		let maxID = try db.scalar(table.select(rowID.max))!
+		let query = table.select(column).filter(rowID == maxID)
+		let image = try db.pluck(query)!.get(column)
 
-			let db = try Connection(dbURL.path)
-			let maxID = try db.scalar(table.select(rowID.max))!
-			let query = table.select(column).filter(rowID == maxID)
-			let image = try db.pluck(query)!.get(column)
-
-			return wallpaperURL.appendingPathComponent(image)
-		}
-
-		return wallpaperURL
+		return url.appendingPathComponent(image)
 	}
 
-	/// Sets the wallpaper for a specific screen
-	public static func set(_ image: URL, screens: Screen = .all, scale: Scale = .auto) throws {
+	/// Get the current wallpapers
+	public static func get(screen: Screen = .all) throws -> [URL] {
+		let wallpaperURLs = screen.nsScreens.compactMap { NSWorkspace.shared.desktopImageURL(for: $0) }
+		return try wallpaperURLs.map { $0.isDirectory ? try getFromDirectory($0) : $0 }
+	}
+
+	/// Set an image URL as wallpaper
+	public static func set(_ image: URL, screen: Screen = .all, scale: Scale = .auto) throws {
 		var options = [NSWorkspace.DesktopImageOptionKey: Any]()
 
 		switch scale {
@@ -82,8 +81,13 @@ public struct Wallpaper {
 			options[.allowClipping] = false
 		}
 
-		for nsScreen in screens.nsScreens {
+		for nsScreen in screen.nsScreens {
 			try NSWorkspace.shared.setDesktopImageURL(image, for: nsScreen, options: options)
 		}
+	}
+
+	/// Names of available screens
+	public static var screenNames: [String] {
+		return NSScreen.screens.map { $0.name }
 	}
 }
