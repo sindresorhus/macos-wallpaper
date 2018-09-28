@@ -47,7 +47,7 @@ func convertStringToScale(_ scale: String?) -> Wallpaper.Scale {
 
 final class SetCommand: Command {
 	let name = "set"
-	let shortDescription = "Set wallpaper image. Usage: set <path>"
+	let shortDescription = "Set wallpaper image"
 	let path = Parameter()
 	let screen = Key<String>("--screen", description: "Values: all, main, <index> [Default: all]")
 	let scale = Key<String>("--scale", description: "Values: auto, fill, fit, stretch, center [Default: auto]")

@@ -30,20 +30,47 @@ $ brew install wallpaper
 
 ### Usage
 
+By default, it sets and gets the wallpaper for all screens. Use the `--screen` flag to change this.
+
 ```
+$ wallpaper help
+
 Usage: wallpaper <command> [options]
 
 Manage the desktop wallpaper
 
 Commands:
-  set             Set wallpaper image. Usage: set <path>
+  set             Set wallpaper image
   get             Get current wallpaper image
   screens         List screens
   help            Prints help information
   version         Prints the current version of this app
 ```
 
-By default, it sets and gets the wallpaper for all screens. Use the `--screen` flag to change this.
+```
+$ wallpaper get --help
+
+Usage: wallpaper get [options]
+
+Get current wallpaper image
+
+Options:
+  --screen <value>    Values: all, main, <index> [Default: all]
+  -h, --help          Show help information
+```
+
+```
+$ wallpaper set --help
+
+Usage: wallpaper set <path> [options]
+
+Set wallpaper image
+
+Options:
+  --scale <value>     Values: auto, fill, fit, stretch, center [Default: auto]
+  --screen <value>    Values: all, main, <index> [Default: all]
+  -h, --help          Show help information
+```
 
 ##### Set
 
@@ -108,6 +135,9 @@ swift package generate-xcodeproj --xcconfig-overrides=Config.xcconfig
 ## Related
 
 - [wallpaper](https://github.com/sindresorhus/wallpaper) - Get or set the desktop wallpaper cross-platform *(Uses this binary)*
+- [macos-trash](https://github.com/sindresorhus/macos-trash) - Move files and directories to the trash
+- [do-not-disturb](https://github.com/sindresorhus/do-not-disturb) - Control the macOS `Do Not Disturb` feature
+- [More…](https://github.com/search?q=user%3Asindresorhus+language%3Aswift)
 
 
 ## License
