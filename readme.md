@@ -66,7 +66,7 @@ $ wallpaper get
 With Swift Package Manager:
 
 ```swift
-.package(url: "https://github.com/sindresorhus/macos-wallpaper", from: "2.0.0")
+.package(url: "https://github.com/sindresorhus/macos-wallpaper", from: "1.3.0")
 ```
 
 ### Usage
@@ -95,7 +95,7 @@ swift run wallpaper
 ### Build
 
 ```
-swift build --configuration=release
+swift build --configuration=release -Xswiftc -static-stdlib
 ```
 
 ### Generate Xcode project

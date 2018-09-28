@@ -1,5 +1,9 @@
 import AppKit
 
+func sleep(for duration: TimeInterval) {
+	usleep(useconds_t(duration * Double(USEC_PER_SEC)))
+}
+
 extension Collection {
 	/// Access a collection by index safely
 	subscript(safe index: Index) -> Element? {
