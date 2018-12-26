@@ -122,7 +122,7 @@ swift run wallpaper
 ### Build
 
 ```
-swift build --configuration=release -Xswiftc -static-stdlib
+swift build --configuration=release --static-swift-stdlib
 ```
 
 ### Generate Xcode project
