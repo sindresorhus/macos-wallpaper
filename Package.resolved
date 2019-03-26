@@ -3,7 +3,7 @@
     "pins": [
       {
         "package": "SQLite.swift",
-        "repositoryURL": "https://github.com/stephencelis/SQLite.swift.git",
+        "repositoryURL": "https://github.com/stephencelis/SQLite.swift",
         "state": {
           "branch": null,
           "revision": "210098546d59678f720e4ef67f8b562acfebbdb0",
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/jakeheis/SwiftCLI",
         "state": {
           "branch": null,
-          "revision": "37f4a7f863f6fe76ce44fc0023f331eea0089beb",
-          "version": "5.2.0"
+          "revision": "5318c37d3cacc8780f50b87a8840a6774320ebdf",
+          "version": "5.2.2"
         }
       }
     ]
