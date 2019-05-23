@@ -8,10 +8,6 @@ It correctly handles getting the active wallpaper even when the wallpaper is set
 
 *Requires macOS 10.12 or later.*
 
-<a href="https://www.patreon.com/sindresorhus">
-	<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
-</a>
-
 
 ## CLI
 
