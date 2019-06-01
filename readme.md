@@ -65,6 +65,7 @@ Set wallpaper image
 Options:
   --scale <value>     Values: auto, fill, fit, stretch, center [Default: auto]
   --screen <value>    Values: all, main, <index> [Default: all]
+  --fill <value>      Format: Hex color <RRGGBB> [Default: nil]
   -h, --help          Show help information
 ```
 
@@ -99,7 +100,7 @@ import Wallpaper
 
 let imageURL = URL(fileURLWithPath: "<path>")
 
-try! Wallpaper.set(imageURL, screen: .main, scale: .fill)
+try! Wallpaper.set(imageURL, screen: .main, scale: .fill, fill: "FF0000")
 
 print(try! Wallpaper.get(screen: .main))
 ```
