@@ -56,7 +56,7 @@ public struct Wallpaper {
 		return url.appendingPathComponent(image)
 	}
 
-	/// Get the current wallpapers
+	/// Get the current wallpapers.
 	public static func get(screen: Screen = .all) throws -> [URL] {
 		let wallpaperURLs = screen.nsScreens.compactMap { NSWorkspace.shared.desktopImageURL(for: $0) }
 		return try wallpaperURLs.map { $0.isDirectory ? try getFromDirectory($0) : $0 }
@@ -82,7 +82,7 @@ public struct Wallpaper {
 		}
 	}
 
-	/// Set an image URL as wallpaper
+	/// Set an image URL as wallpaper.
 	public static func set(_ image: URL, screen: Screen = .all, scale: Scale = .auto) throws {
 		var options = [NSWorkspace.DesktopImageOptionKey: Any]()
 
@@ -110,8 +110,8 @@ public struct Wallpaper {
 		}
 	}
 
-	/// Names of available screens
+	/// Names of available screens.
 	public static var screenNames: [String] {
-		return NSScreen.screens.map { $0.name }
+		NSScreen.screens.map { $0.name }
 	}
 }

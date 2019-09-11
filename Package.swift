@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.1
 import PackageDescription
 
 let package = Package(
@@ -21,8 +21,8 @@ let package = Package(
 		),
 	],
 	dependencies: [
-		.package(url: "https://github.com/jakeheis/SwiftCLI", from: "5.2.2"),
-		.package(url: "https://github.com/stephencelis/SQLite.swift", from: "0.11.5")
+		.package(url: "https://github.com/jakeheis/SwiftCLI", from: "5.3.2"),
+		.package(url: "https://github.com/stephencelis/SQLite.swift", from: "0.12.2")
 	],
 	targets: [
 		.target(
