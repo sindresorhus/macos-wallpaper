@@ -5,9 +5,9 @@ func sleep(for duration: TimeInterval) {
 }
 
 extension Collection {
-	/// Access a collection by index safely
+	/// Access a collection by index safely.
 	subscript(safe index: Index) -> Element? {
-		return indices.contains(index) ? self[index] : nil
+		indices.contains(index) ? self[index] : nil
 	}
 }
 
@@ -28,9 +28,7 @@ extension URL {
 		return values.allValues[key] as? Bool ?? defaultValue
 	}
 
-	var isDirectory: Bool {
-		return boolResourceValue(forKey: .isDirectoryKey)
-	}
+	var isDirectory: Bool { boolResourceValue(forKey: .isDirectoryKey) }
 }
 
 extension NSScreen {
@@ -65,7 +63,7 @@ extension NSScreen {
 	}
 
 	var id: CGDirectDisplayID {
-		return deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as! CGDirectDisplayID
+		deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as! CGDirectDisplayID
 	}
 
 	var name: String {

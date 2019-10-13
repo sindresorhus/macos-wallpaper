@@ -17,7 +17,7 @@ enum PrintOutputTarget {
 	case standardError
 }
 
-/// Make `print()` accept an array of items
+/// Make `print()` accept an array of items.
 /// Since Swift doesn't support spreading...
 private func print<Target>(
 	_ items: [Any],

@@ -87,7 +87,7 @@ $ wallpaper get
 
 ### Install
 
-With Swift Package Manager:
+With SwiftPM:
 
 ```swift
 .package(url: "https://github.com/sindresorhus/macos-wallpaper", from: "2.0.0")
@@ -119,7 +119,7 @@ swift run wallpaper
 ### Build
 
 ```
-swift build --configuration=release --static-swift-stdlib
+swift build --configuration=release
 ```
 
 ### Generate Xcode project
@@ -135,8 +135,3 @@ swift package generate-xcodeproj --xcconfig-overrides=Config.xcconfig
 - [macos-trash](https://github.com/sindresorhus/macos-trash) - Move files and directories to the trash
 - [do-not-disturb](https://github.com/sindresorhus/do-not-disturb) - Control the macOS `Do Not Disturb` feature
 - [More…](https://github.com/search?q=user%3Asindresorhus+language%3Aswift)
-
-
-## License
-
-MIT © [Sindre Sorhus](https://sindresorhus.com)
