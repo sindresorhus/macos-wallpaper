@@ -8,7 +8,6 @@ It correctly handles getting the active wallpaper even when the wallpaper is set
 
 *Requires macOS 10.12 or later.*
 
-
 ## CLI
 
 ### Install
@@ -81,12 +80,11 @@ $ wallpaper get
 /Users/sindresorhus/unicorn.jpg
 ```
 
-
 ## API
 
 ### Install
 
-With SwiftPM:
+Swift Package Manager:
 
 ```swift
 .package(url: "https://github.com/sindresorhus/macos-wallpaper", from: "2.0.0")
@@ -106,7 +104,6 @@ print(try! Wallpaper.get(screen: .main))
 
 See the [source](Sources/Wallpaper/Wallpaper.swift) for more.
 
-
 ## Dev
 
 ### Run
@@ -120,13 +117,6 @@ swift run wallpaper
 ```
 swift build --configuration=release
 ```
-
-### Generate Xcode project
-
-```
-swift package generate-xcodeproj --xcconfig-overrides=Config.xcconfig
-```
-
 
 ## Related
 
