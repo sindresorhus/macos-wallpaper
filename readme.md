@@ -62,10 +62,10 @@ Usage: wallpaper set <path> [options]
 Set wallpaper image
 
 Options:
-  --scale <value>     Values: auto, fill, fit, stretch, center [Default: auto]
-  --screen <value>    Values: all, main, <index> [Default: all]
-  --fill <value>      Format: Hex color <RRGGBB> [Default: nil]
-  -h, --help          Show help information
+  --scale <value>         Values: auto, fill, fit, stretch, center [Default: auto]
+  --screen <value>        Values: all, main, <index> [Default: all]
+  --fill-color <value>    Format: Hex color <RRGGBB> [Default: nil]
+  -h, --help              Show help information
 ```
 
 ##### Set
@@ -98,7 +98,7 @@ import Wallpaper
 
 let imageURL = URL(fileURLWithPath: "<path>")
 
-try! Wallpaper.set(imageURL, screen: .main, scale: .fill, fill: "FF0000")
+try! Wallpaper.set(imageURL, screen: .main, scale: .fill, fillColor: NSColor.blue)
 
 print(try! Wallpaper.get(screen: .main))
 ```

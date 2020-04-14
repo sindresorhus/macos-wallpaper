@@ -83,7 +83,7 @@ public struct Wallpaper {
 	}
 
 	/// Set an image URL as wallpaper.
-	public static func set(_ image: URL, screen: Screen = .all, scale: Scale = .auto, fill: NSColor? = nil) throws {
+	public static func set(_ image: URL, screen: Screen = .all, scale: Scale = .auto, fillColor: NSColor? = nil) throws {
 		var options = [NSWorkspace.DesktopImageOptionKey: Any]()
 
 		switch scale {
@@ -103,7 +103,7 @@ public struct Wallpaper {
 			options[.allowClipping] = false
 		}
 
-		options[.fillColor] = fill
+		options[.fillColor] = fillColor
 
 		try forceRefreshIfNeeded(image, screen: screen)
 

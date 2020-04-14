@@ -45,13 +45,13 @@ func convertStringToScale(_ scale: String?) -> Wallpaper.Scale {
 	}
 }
 
-func convertStringToFill(_ fill: String?) -> NSColor? {
-	guard let fill = fill else {
+func convertStringToFillColor(_ color: String?) -> NSColor? {
+	guard let color = color else {
 		return nil
 	}
 
-	guard let rgb = Int(fill, radix: 16), fill.count == 6 else {
-		print("Invalid `--fill` value", to: .standardError)
+	guard let rgb = Int(color, radix: 16), color.count == 6 else {
+		print("Invalid `--fill-color` value", to: .standardError)
 		exit(1)
 	}
 
@@ -68,14 +68,14 @@ final class SetCommand: Command {
 	let path = Parameter()
 	let screen = Key<String>("--screen", description: "Values: all, main, <index> [Default: all]")
 	let scale = Key<String>("--scale", description: "Values: auto, fill, fit, stretch, center [Default: auto]")
-	let fill = Key<String>("--fill", description: "Format: Hex color <RRGGBB> [Default: nil]")
+	let fillColor = Key<String>("--fill-color", description: "Format: Hex color <RRGGBB> [Default: nil]")
 
 	func execute() throws {
 		try Wallpaper.set(
 			URL(fileURLWithPath: path.value),
 			screen: convertStringToScreen(screen.value),
 			scale: convertStringToScale(scale.value),
-			fill: convertStringToFill(fill.value)
+			fillColor: convertStringToFillColor(fillColor.value)
 		)
 	}
 }
