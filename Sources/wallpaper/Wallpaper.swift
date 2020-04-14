@@ -114,6 +114,6 @@ public struct Wallpaper {
 
 	/// Names of available screens.
 	public static var screenNames: [String] {
-		NSScreen.screens.map { $0.name }
+		NSScreen.screens.map(\.name)
 	}
 }

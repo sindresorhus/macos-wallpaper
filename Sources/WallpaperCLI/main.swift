@@ -87,7 +87,7 @@ final class GetCommand: Command {
 
 	func execute() throws {
 		let wallpaperURLs = try Wallpaper.get(screen: convertStringToScreen(screen.value))
-		print(wallpaperURLs.map { $0.path } .joined(separator: "\n"))
+		print(wallpaperURLs.map(\.path).joined(separator: "\n"))
 	}
 }
 

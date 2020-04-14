@@ -66,6 +66,7 @@ extension NSScreen {
 		deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as! CGDirectDisplayID
 	}
 
+	// TODO: When targeting macOS 10.15, remove this and use `.localizedName` instead.
 	var name: String {
 		guard let info = infoForCGDisplay(id, options: kIODisplayOnlyPreferredName) else {
 			return "Unknown screen"
