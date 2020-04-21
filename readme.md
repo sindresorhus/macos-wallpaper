@@ -22,7 +22,6 @@ $ brew install wallpaper
 
 [Download](https://github.com/sindresorhus/macos-wallpaper/releases/latest) the binary and put it in `/usr/local/bin`.
 
-
 ### Usage
 
 By default, it sets and gets the wallpaper for all screens. Use the `--screen` flag to change this.

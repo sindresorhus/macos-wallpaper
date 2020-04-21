@@ -35,7 +35,10 @@ let package = Package(
 		.target(
 			name: "Wallpaper",
 			dependencies: [
-				.product(name: "SQLite", package: "SQLite.swift")
+				.product(
+					name: "SQLite",
+					package: "SQLite.swift"
+				)
 			]
 		)
 	]

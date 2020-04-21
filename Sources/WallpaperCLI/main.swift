@@ -45,21 +45,17 @@ func convertStringToScale(_ scale: String?) -> Wallpaper.Scale {
 	}
 }
 
-func convertStringToFillColor(_ color: String?) -> NSColor? {
-	guard let color = color else {
+func convertStringToFillColor(_ colorString: String?) -> NSColor? {
+	guard let colorString = colorString else {
 		return nil
 	}
 
-	guard let rgb = Int(color, radix: 16), color.count == 6 else {
+	guard let color = NSColor(hexString: colorString) else {
 		print("Invalid `--fill-color` value", to: .standardError)
 		exit(1)
 	}
 
-	let red = CGFloat((rgb >> 16) & 0xFF) / 255.0
-	let green = CGFloat((rgb >> 8) & 0xFF) / 255.0
-	let blue = CGFloat(rgb & 0xFF) / 255.0
-
-	return NSColor(red: red, green: green, blue: blue, alpha: 0)
+	return color
 }
 
 final class SetCommand: Command {
