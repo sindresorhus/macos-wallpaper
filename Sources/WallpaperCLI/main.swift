@@ -76,6 +76,25 @@ final class SetCommand: Command {
 	}
 }
 
+final class SetSolidColorCommand: Command {
+	let name = "set-solid-color"
+	let shortDescription = "Set solid color wallpaper background"
+	let solidColor = Parameter()
+	let screen = Key<String>("--screen", description: "Values: all, main, <index> [Default: all]")
+
+	func execute() throws {
+		guard let color = NSColor(hexString: solidColor.value) else {
+			print("Invalid `solidColor` value", to: .standardError)
+			exit(1)
+		}
+
+		try Wallpaper.set(
+			color,
+			screen: convertStringToScreen(screen.value)
+		)
+	}
+}
+
 final class GetCommand: Command {
 	let name = "get"
 	let shortDescription = "Get current wallpaper image"
@@ -105,6 +124,7 @@ let cli = CLI(
 
 cli.commands = [
 	SetCommand(),
+	SetSolidColorCommand(),
 	GetCommand(),
 	ScreensCommand()
 ]

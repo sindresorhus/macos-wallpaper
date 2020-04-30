@@ -112,6 +112,15 @@ public struct Wallpaper {
 		}
 	}
 
+	/// Set a solid color as wallpaper.
+	public static func set(_ solidColor: NSColor, screen: Screen = .all) throws {
+		let prefPanesDirectory = try FileManager.default.url(for: .preferencePanesDirectory, in: .systemDomainMask, appropriateFor: nil, create: false)
+		let desktopPrefPane = prefPanesDirectory.appendingPathComponent("DesktopScreenEffectsPref.prefPane/Contents/Resources/DesktopPictures.prefPane")
+		let transparentImage = desktopPrefPane.appendingPathComponent("Contents/Resources/Transparent.tiff")
+
+		try set(transparentImage, screen: screen, scale: .fit, fillColor: solidColor)
+	}
+
 	/// Names of available screens.
 	public static var screenNames: [String] {
 		NSScreen.screens.map(\.name)
