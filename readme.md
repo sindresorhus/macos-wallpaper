@@ -34,11 +34,12 @@ Usage: wallpaper <command> [options]
 Manage the desktop wallpaper
 
 Commands:
-  set             Set wallpaper image
-  get             Get current wallpaper image
-  screens         List screens
-  help            Prints help information
-  version         Prints the current version of this app
+  set               Set wallpaper image
+  set-solid-color   Set solid color wallpaper background
+  get               Get current wallpaper image
+  screens           List screens
+  help              Prints help information
+  version           Prints the current version of this app
 ```
 
 ```
@@ -67,10 +68,28 @@ Options:
   -h, --help              Show help information
 ```
 
+```
+$ wallpaper set-solid-color --help
+
+Usage: wallpaper set-solid-color <color> [options]
+
+Set solid color wallpaper background
+
+Options:
+  --screen <value>        Values: all, main, <index> [Default: all]
+  -h, --help              Show help information
+```
+
 ##### Set
 
 ```
 $ wallpaper set unicorn.jpg
+```
+
+##### Set solid color
+
+```
+$ wallpaper set-solid-color 0000ff
 ```
 
 ##### Get
@@ -96,8 +115,11 @@ Swift Package Manager:
 import Wallpaper
 
 let imageURL = URL(fileURLWithPath: "<path>")
+let solidColor = NSColor.blue
 
 try! Wallpaper.set(imageURL, screen: .main, scale: .fill, fillColor: NSColor.blue)
+
+try! Wallpaper.set(solidColor, screen: .main)
 
 print(try! Wallpaper.get(screen: .main))
 ```
