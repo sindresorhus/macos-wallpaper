@@ -112,6 +112,13 @@ public struct Wallpaper {
 		}
 	}
 
+	/// Set a solid color as wallpaper.
+	public static func set(_ solidColor: NSColor, screen: Screen = .all) throws {
+		let transparentImage = URL(fileURLWithPath: "/System/Library/PreferencePanes/DesktopScreenEffectsPref.prefPane/Contents/Resources/DesktopPictures.prefPane/Contents/Resources/Transparent.tiff")
+
+		try set(transparentImage, screen: screen, scale: .fit, fillColor: solidColor)
+	}
+
 	/// Names of available screens.
 	public static var screenNames: [String] {
 		NSScreen.screens.map(\.name)
