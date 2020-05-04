@@ -106,7 +106,7 @@ $ wallpaper get
 Swift Package Manager:
 
 ```swift
-.package(url: "https://github.com/sindresorhus/macos-wallpaper", from: "2.0.0")
+.package(url: "https://github.com/sindresorhus/macos-wallpaper", from: "2.1.0")
 ```
 
 ### Usage
