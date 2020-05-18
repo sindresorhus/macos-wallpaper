@@ -2,6 +2,8 @@ import AppKit
 import SwiftCLI
 import Wallpaper
 
+// TODO: Switch to `swift-arguments-parser` and use `@main` instead of `main.swift`.
+
 func convertStringToScreen(_ screen: String?) -> Wallpaper.Screen {
 	switch screen {
 	case "all":
@@ -68,7 +70,7 @@ final class SetCommand: Command {
 
 	func execute() throws {
 		try Wallpaper.set(
-			URL(fileURLWithPath: path.value),
+			URL(fileURLWithPath: path.value, isDirectory: false),
 			screen: convertStringToScreen(screen.value),
 			scale: convertStringToScale(scale.value),
 			fillColor: convertStringToFillColor(fillColor.value)
@@ -111,7 +113,7 @@ final class ScreensCommand: Command {
 	let shortDescription = "List screens"
 
 	func execute() throws {
-		let output = Wallpaper.screenNames.enumerated().map { "\($0) - \($1)" } .joined(separator: "\n")
+		let output = Wallpaper.screenNames.enumerated().map { "\($0) - \($1)" }.joined(separator: "\n")
 		print(output)
 	}
 }

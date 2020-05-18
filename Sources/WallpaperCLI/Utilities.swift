@@ -8,7 +8,7 @@ extension FileHandle: TextOutputStream {
 }
 
 
-private struct CLI {
+private enum CLI {
 	static var standardInput = FileHandle.standardInput
 	static var standardOutput = FileHandle.standardOutput
 	static var standardError = FileHandle.standardError

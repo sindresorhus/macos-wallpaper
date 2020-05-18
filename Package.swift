@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.4
 import PackageDescription
 
 let package = Package(
@@ -25,7 +25,7 @@ let package = Package(
 		.package(url: "https://github.com/stephencelis/SQLite.swift", from: "0.12.2")
 	],
 	targets: [
-		.target(
+		.executableTarget(
 			name: "WallpaperCLI",
 			dependencies: [
 				"Wallpaper",

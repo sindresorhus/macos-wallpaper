@@ -1,7 +1,7 @@
 import AppKit
 import SQLite
 
-public struct Wallpaper {
+public enum Wallpaper {
 	public enum Screen {
 		case all
 		case main
@@ -42,7 +42,7 @@ public struct Wallpaper {
 	/// https://openradar.appspot.com/radar?id=4959084113559552
 	private static func getFromDirectory(_ url: URL) throws -> URL {
 		let appSupportDirectory = try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-		let dbURL = appSupportDirectory.appendingPathComponent("Dock/desktoppicture.db")
+		let dbURL = appSupportDirectory.appendingPathComponent("Dock/desktoppicture.db", isDirectory: false)
 
 		let table = Table("data")
 		let column = Expression<String>("value")
@@ -53,7 +53,7 @@ public struct Wallpaper {
 		let query = table.select(column).filter(rowID == maxID)
 		let image = try db.pluck(query)!.get(column)
 
-		return url.appendingPathComponent(image)
+		return url.appendingPathComponent(image, isDirectory: false)
 	}
 
 	/// Get the current wallpapers.

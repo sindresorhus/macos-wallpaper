@@ -6,7 +6,7 @@ This is both a command-line app and a Swift package.
 
 It correctly handles getting the active wallpaper even when the wallpaper is set to a directory.
 
-*Requires macOS 10.12 or later.*
+*Requires macOS 10.14.4 or later.*
 
 ## CLI
 
@@ -103,18 +103,20 @@ $ wallpaper get
 
 ### Install
 
-Swift Package Manager:
+Add the following to `Package.swift`:
 
 ```swift
 .package(url: "https://github.com/sindresorhus/macos-wallpaper", from: "2.1.0")
 ```
+
+[Or add the package in Xcode.](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app)
 
 ### Usage
 
 ```swift
 import Wallpaper
 
-let imageURL = URL(fileURLWithPath: "<path>")
+let imageURL = URL(fileURLWithPath: "<path>", isDirectory: false)
 let solidColor = NSColor.blue
 
 try! Wallpaper.set(imageURL, screen: .main, scale: .fill, fillColor: NSColor.blue)
