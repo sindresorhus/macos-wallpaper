@@ -126,7 +126,7 @@ try! Wallpaper.set(solidColor, screen: .main)
 print(try! Wallpaper.get(screen: .main))
 ```
 
-See the [source](Sources/Wallpaper/Wallpaper.swift) for more.
+See the [source](Sources/wallpaper/Wallpaper.swift) for more.
 
 ## Dev
 
