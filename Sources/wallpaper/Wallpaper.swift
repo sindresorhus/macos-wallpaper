@@ -30,7 +30,7 @@ public enum Wallpaper {
 		}
 	}
 
-	public enum Scale {
+	public enum Scale: String, CaseIterable {
 		case auto
 		case fill
 		case fit

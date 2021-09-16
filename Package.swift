@@ -1,4 +1,4 @@
-// swift-tools-version:5.4
+// swift-tools-version:5.5
 import PackageDescription
 
 let package = Package(
@@ -21,15 +21,18 @@ let package = Package(
 		),
 	],
 	dependencies: [
-		.package(url: "https://github.com/jakeheis/SwiftCLI", from: "5.3.2"),
-		.package(url: "https://github.com/stephencelis/SQLite.swift", from: "0.12.2")
+		.package(url: "https://github.com/apple/swift-argument-parser", from: "1.0.1"),
+		.package(url: "https://github.com/stephencelis/SQLite.swift", from: "0.13.0")
 	],
 	targets: [
 		.executableTarget(
 			name: "WallpaperCLI",
 			dependencies: [
 				"Wallpaper",
-				"SwiftCLI"
+				.product(
+					name: "ArgumentParser",
+					package: "swift-argument-parser"
+				)
 			]
 		),
 		.target(

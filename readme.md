@@ -27,57 +27,61 @@ $ brew install wallpaper
 By default, it sets and gets the wallpaper for all screens. Use the `--screen` flag to change this.
 
 ```
-$ wallpaper help
+$ wallpaper
 
-Usage: wallpaper <command> [options]
+USAGE: wallpaper <subcommand>
 
-Manage the desktop wallpaper
+OPTIONS:
+  --version               Show the version.
+  -h, --help              Show help information.
 
-Commands:
-  set               Set wallpaper image
-  set-solid-color   Set solid color wallpaper background
-  get               Get current wallpaper image
-  screens           List screens
-  help              Prints help information
-  version           Prints the current version of this app
+SUBCOMMANDS:
+  get                     Get current wallpaper images.
+  set                     Set image as wallpaper.
+  set-solid-color         Set solid color as wallpaper.
+  screens                 Get a list of available screens.
 ```
 
 ```
 $ wallpaper get --help
 
-Usage: wallpaper get [options]
+OVERVIEW: Get current wallpaper images.
 
-Get current wallpaper image
+USAGE: wallpaper get [--screen <screen>]
 
-Options:
-  --screen <value>    Values: all, main, <index> [Default: all]
-  -h, --help          Show help information
+OPTIONS:
+  --screen <screen>       Values: all, main, <index> (default: all)
 ```
 
 ```
 $ wallpaper set --help
 
-Usage: wallpaper set <path> [options]
+OVERVIEW: Set image as wallpaper.
 
-Set wallpaper image
+USAGE: wallpaper set <path> [--screen <screen>] [--scale <scale>] [--fill-color <fill-color>]
 
-Options:
-  --scale <value>         Values: auto, fill, fit, stretch, center [Default: auto]
-  --screen <value>        Values: all, main, <index> [Default: all]
-  --fill-color <value>    Format: Hex color <RRGGBB> [Default: nil]
-  -h, --help              Show help information
+ARGUMENTS:
+  <path>                  The path to the image to use as wallpaper.
+
+OPTIONS:
+  --screen <screen>       Values: all, main, <index> (default: all)
+  --scale <scale>         Values: auto, fill, fit, stretch, center (default: auto)
+  --fill-color <fill-color>
+                          Format: Hex color <RRGGBB>
 ```
 
 ```
 $ wallpaper set-solid-color --help
 
-Usage: wallpaper set-solid-color <color> [options]
+OVERVIEW: Set solid color as wallpaper.
 
-Set solid color wallpaper background
+USAGE: wallpaper set-solid-color <color> [--screen <screen>]
 
-Options:
-  --screen <value>        Values: all, main, <index> [Default: all]
-  -h, --help              Show help information
+ARGUMENTS:
+  <color>                 The color to use as wallpaper.
+
+OPTIONS:
+  --screen <screen>       Values: all, main, <index> (default: all)
 ```
 
 ##### Set
@@ -117,10 +121,9 @@ Add the following to `Package.swift`:
 import Wallpaper
 
 let imageURL = URL(fileURLWithPath: "<path>", isDirectory: false)
+try! Wallpaper.set(imageURL, screen: .main, scale: .fill)
+
 let solidColor = NSColor.blue
-
-try! Wallpaper.set(imageURL, screen: .main, scale: .fill, fillColor: NSColor.blue)
-
 try! Wallpaper.set(solidColor, screen: .main)
 
 print(try! Wallpaper.get(screen: .main))
