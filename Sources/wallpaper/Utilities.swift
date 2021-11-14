@@ -5,7 +5,6 @@ func sleep(for duration: TimeInterval) {
 }
 
 extension Collection {
-	/// Access a collection by index safely.
 	subscript(safe index: Index) -> Element? {
 		indices.contains(index) ? self[index] : nil
 	}
