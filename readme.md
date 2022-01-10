@@ -14,8 +14,8 @@ It correctly handles getting the active wallpaper even when the wallpaper is set
 
 ###### [Homebrew](https://brew.sh)
 
-```
-$ brew install wallpaper
+```sh
+brew install wallpaper
 ```
 
 ###### Manually
@@ -86,20 +86,20 @@ OPTIONS:
 
 ##### Set
 
-```
-$ wallpaper set unicorn.jpg
+```sh
+wallpaper set unicorn.jpg
 ```
 
 ##### Set solid color
 
-```
-$ wallpaper set-solid-color 0000ff
+```sh
+wallpaper set-solid-color 0000ff
 ```
 
 ##### Get
 
-```
-$ wallpaper get
+```sh
+wallpaper get
 /Users/sindresorhus/unicorn.jpg
 ```
 
@@ -135,14 +135,14 @@ See the [source](Sources/wallpaper/Wallpaper.swift) for more.
 
 ### Run
 
-```
+```sh
 swift run wallpaper
 ```
 
 ### Build
 
-```
-swift build --configuration=release
+```sh
+swift build --configuration=release --arch arm64 --arch x86_64 && mv .build/apple/Products/Release/wallpaper .
 ```
 
 ## Related
