@@ -126,15 +126,14 @@ extension Wallpaper.Screen: ExpressibleByArgument {
 		case "main":
 			self = .main
 		default:
-			if let index = Int(argument) {
-				guard index < NSScreen.screens.count else {
-					return nil
-				}
-
-				self = .index(index)
+			guard
+				let index = Int(argument),
+				index < NSScreen.screens.count
+			else {
+				return nil
 			}
 
-			return nil
+			self = .index(index)
 		}
 	}
 }
