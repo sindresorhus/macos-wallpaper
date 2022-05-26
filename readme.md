@@ -6,7 +6,7 @@ This is both a command-line app and a Swift package.
 
 It correctly handles getting the active wallpaper even when the wallpaper is set to a directory.
 
-*Requires macOS 10.14.4 or later.*
+*Requires XCode 13.0, and thus macOS > 10.15.*
 
 ## CLI
 
