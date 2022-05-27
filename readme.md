@@ -6,9 +6,9 @@ This is both a command-line app and a Swift package.
 
 It correctly handles getting the active wallpaper even when the wallpaper is set to a directory.
 
-*Requires macOS 10.14.4 or later.*
-
 ## CLI
+
+*Requires macOS 10.14.4 or later.*
 
 ### Install
 
@@ -104,6 +104,8 @@ wallpaper get
 ```
 
 ## API
+
+*Building this requires the latest Xcode and macOS version. The package supports macOS 10.14.4 or later.*
 
 ### Install
 
