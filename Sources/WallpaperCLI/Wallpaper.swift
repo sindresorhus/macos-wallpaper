@@ -52,8 +52,8 @@ extension Main {
 
 		@Option(
 			help: "Format: Hex color <RRGGBB>",
-			transform: {
-				guard let color = NSColor(hexString: $0) else {
+			transform: { (hexString: String) -> NSColor? in
+				guard let color = NSColor(hexString: hexString) else {
 					throw ValidationError("The color should be in Hex format.")
 				}
 
@@ -112,7 +112,7 @@ extension Main {
 	}
 }
 
-extension URL: ExpressibleByArgument {
+extension URL: @retroactive ExpressibleByArgument {
 	public init?(argument: String) {
 		self = URL(fileURLWithPath: argument, isDirectory: false)
 	}

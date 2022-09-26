@@ -1,6 +1,9 @@
 import AppKit
 import SQLite
 
+// https://github.com/stephencelis/SQLite.swift/issues/1277
+typealias Expression = SQLite.Expression
+
 public enum Wallpaper {
 	public enum Screen {
 		case all
@@ -93,7 +96,12 @@ public enum Wallpaper {
 	/**
 	Set an image URL as wallpaper.
 	*/
-	public static func set(_ image: URL, screen: Screen = .all, scale: Scale = .auto, fillColor: NSColor? = nil) throws {
+	public static func set(
+		_ image: URL,
+		screen: Screen = .all,
+		scale: Scale = .auto,
+		fillColor: NSColor? = nil
+	) throws {
 		var options = [NSWorkspace.DesktopImageOptionKey: Any]()
 
 		switch scale {

@@ -1,10 +1,10 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.11
 import PackageDescription
 
 let package = Package(
 	name: "Wallpaper",
 	platforms: [
-		.macOS(.v10_12)
+		.macOS(.v10_13)
 	],
 	products: [
 		.executable(
@@ -21,8 +21,8 @@ let package = Package(
 		),
 	],
 	dependencies: [
-		.package(url: "https://github.com/apple/swift-argument-parser", from: "1.0.2"),
-		.package(url: "https://github.com/stephencelis/SQLite.swift", from: "0.13.1")
+		.package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0"),
+		.package(url: "https://github.com/stephencelis/SQLite.swift", from: "0.15.3")
 	],
 	targets: [
 		.executableTarget(

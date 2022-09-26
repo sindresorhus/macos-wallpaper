@@ -152,4 +152,4 @@ swift build --configuration=release --arch arm64 --arch x86_64 && mv .build/appl
 - [wallpaper](https://github.com/sindresorhus/wallpaper) - Get or set the desktop wallpaper cross-platform *(Uses this binary)*
 - [macos-trash](https://github.com/sindresorhus/macos-trash) - Move files and directories to the trash
 - [do-not-disturb](https://github.com/sindresorhus/do-not-disturb) - Control the macOS `Do Not Disturb` feature
-- [More…](https://github.com/search?q=user%3Asindresorhus+language%3Aswift)
+- [More…](https://github.com/search?q=user%3Asindresorhus+language%3Aswift+archived%3Afalse&type=repositories)
