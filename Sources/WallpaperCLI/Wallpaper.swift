@@ -7,7 +7,7 @@ struct Main: ParsableCommand {
 	static var configuration = CommandConfiguration(
 		commandName: "wallpaper", // TODO: Remove this when https://github.com/apple/swift-argument-parser/issues/295 is fixed.
 		abstract: "Manage the desktop wallpaper",
-		version: "2.3.1",
+		version: "2.3.2",
 		subcommands: [
 			Get.self,
 			Set.self,
