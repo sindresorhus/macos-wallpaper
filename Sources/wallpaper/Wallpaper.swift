@@ -116,22 +116,54 @@ public enum Wallpaper {
 
 	https://openradar.appspot.com/radar?id=6095446787227648
 	*/
-	private static func forceRefreshIfNeeded(_ image: URL, screen: Screen) throws {
-		var shouldSleep = false
-		let currentImages = try get(screen: screen)
+	private static func makeTemporaryImageCopy(_ image: URL) throws -> URL? {
+		if image.isDirectory {
+			return nil
+		}
 
-		for (index, nsScreen) in screen.nsScreens.enumerated() {
-			if image == currentImages[index] {
-				shouldSleep = true
-				try NSWorkspace.shared.setDesktopImageURL(URL(fileURLWithPath: ""), for: nsScreen, options: [:])
+		let directory = FileManager.default.temporaryDirectory.appendingPathComponent("macos-wallpaper", isDirectory: true)
+		try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+
+		let pathExtension = image.pathExtension
+		let filename = pathExtension.isEmpty ? UUID().uuidString : "\(UUID().uuidString).\(pathExtension)"
+		let temporaryImage = directory.appendingPathComponent(filename, isDirectory: false)
+		try FileManager.default.copyItem(at: image, to: temporaryImage)
+
+		return temporaryImage
+	}
+
+	private static func forceRefreshIfNeeded(
+		_ image: URL,
+		screen: Screen,
+		options: [NSWorkspace.DesktopImageOptionKey: Any]
+	) throws {
+		let currentImages = try get(screen: screen)
+		let matchingScreens = screen.nsScreens.enumerated().compactMap { index, nsScreen -> NSScreen? in
+			guard currentImages[safe: index] == image else {
+				return nil
+			}
+
+			return nsScreen
+		}
+
+		if matchingScreens.isEmpty {
+			return
+		}
+
+		let refreshImage = (try? makeTemporaryImageCopy(image)) ?? URL(fileURLWithPath: "")
+		defer {
+			if refreshImage.path.hasPrefix(FileManager.default.temporaryDirectory.path) {
+				try? FileManager.default.removeItem(at: refreshImage)
 			}
 		}
 
-		if shouldSleep {
-			// We need to sleep for a little bit, otherwise it doesn't take effect.
-			// It works with 0.3, but not with 0.2, so we're using 0.4 just to be sure.
-			sleep(for: 0.4)
+		for nsScreen in matchingScreens {
+			try NSWorkspace.shared.setDesktopImageURL(refreshImage, for: nsScreen, options: options)
 		}
+
+		// We need to sleep for a little bit, otherwise it doesn't take effect.
+		// It works with 0.3, but not with 0.2, so we're using 0.4 just to be sure.
+		sleep(for: 0.4)
 	}
 
 	/**
@@ -167,7 +199,7 @@ public enum Wallpaper {
 
 		options[.fillColor] = fillColor
 
-		try forceRefreshIfNeeded(image, screen: screen)
+		try forceRefreshIfNeeded(image, screen: screen, options: options)
 
 		for nsScreen in screen.nsScreens {
 			try NSWorkspace.shared.setDesktopImageURL(image, for: nsScreen, options: options)
