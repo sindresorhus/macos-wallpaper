@@ -48,7 +48,60 @@ public enum Wallpaper {
 
 	Note: This workaround is only needed on macOS versions prior to macOS 26. On macOS 26+, the database schema may have changed or may not exist, and NSWorkspace.shared.desktopImageURL appears to return proper file paths.
 	*/
-	private static func getFromDirectory(_ url: URL) throws -> URL {
+	private static func imageURL(fromDatabaseValue value: String, in directory: URL) -> URL {
+		if value.hasPrefix("/") {
+			return URL(fileURLWithPath: value, isDirectory: false)
+		}
+
+		return directory.appendingPathComponent(value, isDirectory: false)
+	}
+
+	private static func getDisplaySpecificImage(from db: Connection, directory: URL, screen: NSScreen) throws -> URL? {
+		guard let displayUUID = screen.displayUUID else {
+			return nil
+		}
+
+		let data = Table("data")
+		let preferences = Table("preferences")
+		let pictures = Table("pictures")
+		let displays = Table("displays")
+
+		let rowID = Expression<Int64>("rowid")
+		let value = Expression<String>("value")
+		let key = Expression<Int64>("key")
+		let dataID = Expression<Int64>("data_id")
+		let pictureID = Expression<Int64>("picture_id")
+		let displayID = Expression<Int64>("display_id")
+		let displayUUIDColumn = Expression<String>("display_uuid")
+
+		let query = preferences
+			.join(data, on: preferences[dataID] == data[rowID])
+			.join(pictures, on: preferences[pictureID] == pictures[rowID])
+			.join(displays, on: pictures[displayID] == displays[rowID])
+			.select(data[value])
+			.filter(displays[displayUUIDColumn] == displayUUID && preferences[key] == 16)
+			.order(preferences[rowID].desc)
+
+		guard let image = try db.pluck(query)?.get(data[value]) else {
+			return nil
+		}
+
+		return imageURL(fromDatabaseValue: image, in: directory)
+	}
+
+	private static func getMostRecentImage(from db: Connection, directory: URL) throws -> URL {
+		let data = Table("data")
+		let value = Expression<String>("value")
+		let rowID = Expression<Int64>("rowid")
+
+		let maxID = try db.scalar(data.select(rowID.max))!
+		let query = data.select(value).filter(rowID == maxID)
+		let image = try db.pluck(query)!.get(value)
+
+		return imageURL(fromDatabaseValue: image, in: directory)
+	}
+
+	private static func getFromDirectory(_ url: URL, screen: NSScreen) throws -> URL {
 		// On macOS 26+, skip the database workaround as it may not be available
 		// and the underlying bug appears to be fixed
 		if #available(macOS 26, *) {
@@ -57,31 +110,30 @@ public enum Wallpaper {
 
 		let appSupportDirectory = try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
 		let dbURL = appSupportDirectory.appendingPathComponent("Dock/desktoppicture.db", isDirectory: false)
-
-		let table = Table("data")
-		let column = Expression<String>("value")
-		let rowID = Expression<Int64>("rowid")
-
 		let db = try Connection(dbURL.path)
-		let maxID = try db.scalar(table.select(rowID.max))!
-		let query = table.select(column).filter(rowID == maxID)
-		let image = try db.pluck(query)!.get(column)
 
-		return url.appendingPathComponent(image, isDirectory: false)
+		if let image = try getDisplaySpecificImage(from: db, directory: url, screen: screen) {
+			return image
+		}
+
+		return try getMostRecentImage(from: db, directory: url)
 	}
 
 	/**
 	Get the current wallpapers.
 	*/
 	public static func get(screen: Screen = .all) throws -> [URL] {
-		let wallpaperURLs = screen.nsScreens.compactMap { NSWorkspace.shared.desktopImageURL(for: $0) }
-		return wallpaperURLs.map { url in
+		screen.nsScreens.compactMap { nsScreen in
+			guard let url = NSWorkspace.shared.desktopImageURL(for: nsScreen) else {
+				return nil
+			}
+
 			if url.isDirectory {
 				// Try to get specific image from directory, fall back to directory if it fails (e.g., in sandbox)
-				return (try? getFromDirectory(url)) ?? url
-			} else {
-				return url
+				return (try? getFromDirectory(url, screen: nsScreen)) ?? url
 			}
+
+			return url
 		}
 	}
 
