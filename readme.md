@@ -70,6 +70,9 @@ OPTIONS:
                           Format: Hex color <RRGGBB>
 ```
 
+> [!NOTE]
+> macOS still offers a `Tile` option in System Settings, but it has no API. The undocumented `NSWorkspace` placement key silently ignores tile values, and the old `desktoppicture.db` method no longer works on macOS 26 and later. `--scale` therefore does not support tile. Set it manually in System Settings if you need it.
+
 ```
 $ wallpaper set-solid-color --help
 
